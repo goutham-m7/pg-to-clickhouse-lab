@@ -1,0 +1,836 @@
+{
+  "synthetic": true,
+  "started_at": "2026-11-19T09:11:38.725978+00:00",
+  "postgres_version": "16.9",
+  "clickhouse_version": "25.8.4.13",
+  "client_arch": "arm64",
+  "runs": 11,
+  "mutation_probe": {
+    "before_drain": [
+      [
+        0,
+        100
+      ]
+    ],
+    "source_after_commit": [
+      [
+        0,
+        125
+      ]
+    ],
+    "after_drain": [
+      [
+        0,
+        125
+      ]
+    ],
+    "after_delete": [],
+    "pause_ms": 250,
+    "update_observed_ms": 274.015,
+    "delete_observed_ms": 10.8
+  },
+  "stages": [
+    {
+      "rows": {
+        "postgres": 10000,
+        "clickhouse": 10000
+      },
+      "bytes": {
+        "postgres": 720896,
+        "clickhouse": 163409
+      },
+      "digest": {
+        "postgres": "7df1b2beede4f9b0920f84653daef0b795d7eace34594dd52b4c761804ab9052",
+        "clickhouse": "7df1b2beede4f9b0920f84653daef0b795d7eace34594dd52b4c761804ab9052"
+      },
+      "queries": {
+        "leaders": {
+          "title": "Highest grossing accounts",
+          "columns": [
+            "Account",
+            "Net cents"
+          ],
+          "sql": "SELECT account, sum(cents) AS net FROM {table} GROUP BY account ORDER BY net DESC, account LIMIT 10",
+          "rows": [
+            [
+              11126,
+              99999
+            ],
+            [
+              17660,
+              99997
+            ],
+            [
+              10017,
+              99994
+            ],
+            [
+              25171,
+              99989
+            ],
+            [
+              1530,
+              99972
+            ],
+            [
+              3162,
+              99972
+            ],
+            [
+              32303,
+              99936
+            ],
+            [
+              11389,
+              99928
+            ],
+            [
+              20330,
+              99914
+            ],
+            [
+              7332,
+              99893
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              3.513,
+              2.263,
+              2.065,
+              1.856,
+              2.615,
+              2.129,
+              2.004,
+              2.851,
+              2.205,
+              3.7,
+              2.827
+            ],
+            "clickhouse": [
+              13.0,
+              4.497,
+              12.042,
+              3.365,
+              3.489,
+              3.004,
+              2.892,
+              3.23,
+              2.953,
+              3.638,
+              3.27
+            ]
+          },
+          "p50_ms": {
+            "postgres": 2.263,
+            "clickhouse": 3.365
+          },
+          "p95_ms": {
+            "postgres": 3.7,
+            "clickhouse": 13.0
+          }
+        },
+        "daily": {
+          "title": "First week by day",
+          "columns": [
+            "Day",
+            "Orders",
+            "Net cents"
+          ],
+          "sql": "SELECT day, count(*), sum(cents) FROM {table} WHERE day < 7 GROUP BY day ORDER BY day",
+          "rows": [
+            [
+              0,
+              1000,
+              49743974
+            ],
+            [
+              1,
+              1000,
+              50295078
+            ],
+            [
+              2,
+              1000,
+              48910356
+            ],
+            [
+              3,
+              1000,
+              49988729
+            ],
+            [
+              4,
+              1000,
+              49923188
+            ],
+            [
+              5,
+              1000,
+              49888381
+            ],
+            [
+              6,
+              1000,
+              49246320
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              1.252,
+              1.328,
+              1.097,
+              0.867,
+              1.355,
+              0.879,
+              1.038,
+              0.798,
+              1.05,
+              0.883,
+              0.956
+            ],
+            "clickhouse": [
+              2.957,
+              2.813,
+              10.792,
+              3.03,
+              2.542,
+              2.594,
+              2.8,
+              2.627,
+              2.358,
+              2.5,
+              2.329
+            ]
+          },
+          "p50_ms": {
+            "postgres": 1.038,
+            "clickhouse": 2.627
+          },
+          "p95_ms": {
+            "postgres": 1.355,
+            "clickhouse": 10.792
+          }
+        },
+        "lookup": {
+          "title": "One order by primary key",
+          "columns": [
+            "Order",
+            "Account",
+            "Day",
+            "Cents"
+          ],
+          "sql": "SELECT id, account, day, cents FROM {table} WHERE id = 42",
+          "rows": [
+            [
+              42,
+              5108,
+              0,
+              25464
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              0.573,
+              0.344,
+              0.444,
+              0.367,
+              0.719,
+              0.265,
+              0.407,
+              0.268,
+              0.373,
+              0.264,
+              0.46
+            ],
+            "clickhouse": [
+              4.789,
+              3.009,
+              2.738,
+              2.394,
+              2.07,
+              2.754,
+              3.098,
+              2.484,
+              2.604,
+              2.031,
+              2.285
+            ]
+          },
+          "p50_ms": {
+            "postgres": 0.373,
+            "clickhouse": 2.604
+          },
+          "p95_ms": {
+            "postgres": 0.719,
+            "clickhouse": 4.789
+          }
+        }
+      },
+      "commit_lags_ms": [
+        57.833
+      ]
+    },
+    {
+      "rows": {
+        "postgres": 250000,
+        "clickhouse": 250000
+      },
+      "bytes": {
+        "postgres": 16728064,
+        "clickhouse": 4019445
+      },
+      "digest": {
+        "postgres": "94658bb287c1a0b2fdaae3a895fe45d72e7a9b33c2cfe4ad3a0d40c6d68f5771",
+        "clickhouse": "94658bb287c1a0b2fdaae3a895fe45d72e7a9b33c2cfe4ad3a0d40c6d68f5771"
+      },
+      "queries": {
+        "leaders": {
+          "title": "Highest grossing accounts",
+          "columns": [
+            "Account",
+            "Net cents"
+          ],
+          "sql": "SELECT account, sum(cents) AS net FROM {table} GROUP BY account ORDER BY net DESC, account LIMIT 10",
+          "rows": [
+            [
+              29875,
+              714633
+            ],
+            [
+              26406,
+              699889
+            ],
+            [
+              675,
+              684754
+            ],
+            [
+              17069,
+              672790
+            ],
+            [
+              8480,
+              667856
+            ],
+            [
+              855,
+              667428
+            ],
+            [
+              17642,
+              663689
+            ],
+            [
+              25855,
+              662227
+            ],
+            [
+              11129,
+              658409
+            ],
+            [
+              884,
+              655901
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              23.48,
+              22.35,
+              23.829,
+              22.533,
+              21.229,
+              21.042,
+              22.706,
+              22.255,
+              20.923,
+              21.265,
+              22.548
+            ],
+            "clickhouse": [
+              5.106,
+              5.437,
+              4.682,
+              5.238,
+              4.391,
+              4.874,
+              4.652,
+              5.343,
+              4.836,
+              5.424,
+              4.853
+            ]
+          },
+          "p50_ms": {
+            "postgres": 22.35,
+            "clickhouse": 4.874
+          },
+          "p95_ms": {
+            "postgres": 23.829,
+            "clickhouse": 5.437
+          }
+        },
+        "daily": {
+          "title": "First week by day",
+          "columns": [
+            "Day",
+            "Orders",
+            "Net cents"
+          ],
+          "sql": "SELECT day, count(*), sum(cents) FROM {table} WHERE day < 7 GROUP BY day ORDER BY day",
+          "rows": [
+            [
+              0,
+              1000,
+              49743974
+            ],
+            [
+              1,
+              1000,
+              50295078
+            ],
+            [
+              2,
+              1000,
+              48910356
+            ],
+            [
+              3,
+              1000,
+              49988729
+            ],
+            [
+              4,
+              1000,
+              49923188
+            ],
+            [
+              5,
+              1000,
+              49888381
+            ],
+            [
+              6,
+              1000,
+              49246320
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              5.489,
+              5.357,
+              5.604,
+              4.987,
+              5.738,
+              5.31,
+              5.697,
+              5.215,
+              5.544,
+              5.254,
+              5.502
+            ],
+            "clickhouse": [
+              2.968,
+              3.163,
+              2.625,
+              3.283,
+              3.261,
+              3.21,
+              2.633,
+              3.181,
+              2.938,
+              3.214,
+              2.599
+            ]
+          },
+          "p50_ms": {
+            "postgres": 5.489,
+            "clickhouse": 3.163
+          },
+          "p95_ms": {
+            "postgres": 5.738,
+            "clickhouse": 3.283
+          }
+        },
+        "lookup": {
+          "title": "One order by primary key",
+          "columns": [
+            "Order",
+            "Account",
+            "Day",
+            "Cents"
+          ],
+          "sql": "SELECT id, account, day, cents FROM {table} WHERE id = 42",
+          "rows": [
+            [
+              42,
+              5108,
+              0,
+              25464
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              0.367,
+              0.262,
+              0.32,
+              0.295,
+              0.411,
+              0.265,
+              0.32,
+              0.256,
+              0.312,
+              0.24,
+              0.304
+            ],
+            "clickhouse": [
+              2.332,
+              1.832,
+              1.914,
+              1.897,
+              1.881,
+              1.84,
+              1.801,
+              1.874,
+              1.717,
+              1.781,
+              1.661
+            ]
+          },
+          "p50_ms": {
+            "postgres": 0.304,
+            "clickhouse": 1.84
+          },
+          "p95_ms": {
+            "postgres": 0.411,
+            "clickhouse": 2.332
+          }
+        }
+      },
+      "commit_lags_ms": [
+        125.819,
+        147.7,
+        110.974,
+        106.926,
+        122.424,
+        122.255,
+        129.273,
+        134.823,
+        128.018,
+        92.973
+      ]
+    },
+    {
+      "rows": {
+        "postgres": 2000000,
+        "clickhouse": 2000000
+      },
+      "bytes": {
+        "postgres": 133545984,
+        "clickhouse": 32090104
+      },
+      "digest": {
+        "postgres": "ad50b1aa5787df170406dbdfae4673fbb0c26e9877866df11600f2b81a6533d7",
+        "clickhouse": "ad50b1aa5787df170406dbdfae4673fbb0c26e9877866df11600f2b81a6533d7"
+      },
+      "queries": {
+        "leaders": {
+          "title": "Highest grossing accounts",
+          "columns": [
+            "Account",
+            "Net cents"
+          ],
+          "sql": "SELECT account, sum(cents) AS net FROM {table} GROUP BY account ORDER BY net DESC, account LIMIT 10",
+          "rows": [
+            [
+              5437,
+              3944064
+            ],
+            [
+              23204,
+              3881067
+            ],
+            [
+              22041,
+              3880823
+            ],
+            [
+              24232,
+              3872514
+            ],
+            [
+              15157,
+              3851757
+            ],
+            [
+              32001,
+              3849092
+            ],
+            [
+              28951,
+              3840785
+            ],
+            [
+              20029,
+              3840651
+            ],
+            [
+              27491,
+              3840264
+            ],
+            [
+              32415,
+              3832826
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              66.599,
+              67.528,
+              73.17,
+              73.459,
+              74.467,
+              69.953,
+              76.261,
+              68.802,
+              67.805,
+              67.656,
+              67.165
+            ],
+            "clickhouse": [
+              6.739,
+              7.541,
+              9.992,
+              9.119,
+              7.637,
+              7.982,
+              7.478,
+              7.977,
+              6.578,
+              7.007,
+              6.592
+            ]
+          },
+          "p50_ms": {
+            "postgres": 68.802,
+            "clickhouse": 7.541
+          },
+          "p95_ms": {
+            "postgres": 76.261,
+            "clickhouse": 9.992
+          }
+        },
+        "daily": {
+          "title": "First week by day",
+          "columns": [
+            "Day",
+            "Orders",
+            "Net cents"
+          ],
+          "sql": "SELECT day, count(*), sum(cents) FROM {table} WHERE day < 7 GROUP BY day ORDER BY day",
+          "rows": [
+            [
+              0,
+              6000,
+              298769603
+            ],
+            [
+              1,
+              6000,
+              298333973
+            ],
+            [
+              2,
+              6000,
+              298842946
+            ],
+            [
+              3,
+              6000,
+              300624437
+            ],
+            [
+              4,
+              6000,
+              299384910
+            ],
+            [
+              5,
+              6000,
+              299583374
+            ],
+            [
+              6,
+              6000,
+              300241828
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              20.287,
+              20.07,
+              20.354,
+              22.099,
+              20.309,
+              20.223,
+              20.856,
+              20.213,
+              21.287,
+              20.767,
+              20.463
+            ],
+            "clickhouse": [
+              3.872,
+              4.275,
+              3.688,
+              3.996,
+              3.436,
+              4.257,
+              3.772,
+              4.202,
+              3.625,
+              4.38,
+              4.026
+            ]
+          },
+          "p50_ms": {
+            "postgres": 20.354,
+            "clickhouse": 3.996
+          },
+          "p95_ms": {
+            "postgres": 22.099,
+            "clickhouse": 4.38
+          }
+        },
+        "lookup": {
+          "title": "One order by primary key",
+          "columns": [
+            "Order",
+            "Account",
+            "Day",
+            "Cents"
+          ],
+          "sql": "SELECT id, account, day, cents FROM {table} WHERE id = 42",
+          "rows": [
+            [
+              42,
+              5108,
+              0,
+              25464
+            ]
+          ],
+          "samples_ms": {
+            "postgres": [
+              0.28,
+              0.225,
+              0.257,
+              0.229,
+              0.258,
+              0.213,
+              0.286,
+              0.231,
+              0.234,
+              0.204,
+              0.242
+            ],
+            "clickhouse": [
+              1.959,
+              1.794,
+              1.681,
+              1.642,
+              1.602,
+              1.676,
+              1.515,
+              1.636,
+              1.513,
+              1.555,
+              1.628
+            ]
+          },
+          "p50_ms": {
+            "postgres": 0.234,
+            "clickhouse": 1.636
+          },
+          "p95_ms": {
+            "postgres": 0.286,
+            "clickhouse": 1.959
+          }
+        }
+      },
+      "commit_lags_ms": [
+        147.459,
+        146.05,
+        143.955,
+        134.592,
+        148.366,
+        144.827,
+        200.06,
+        157.661,
+        159.746,
+        208.166,
+        179.979,
+        211.644,
+        386.691,
+        215.656,
+        202.997,
+        245.47,
+        223.169,
+        301.947,
+        274.806,
+        199.161,
+        204.812,
+        217.196,
+        205.185,
+        231.55,
+        112.697,
+        121.217,
+        112.788,
+        119.646,
+        120.065,
+        205.579,
+        167.973,
+        153.338,
+        136.695,
+        134.429,
+        125.771,
+        144.735,
+        138.349,
+        143.134,
+        143.398,
+        146.609,
+        156.833,
+        150.614,
+        153.77,
+        167.08,
+        157.823,
+        174.474,
+        171.162,
+        177.368,
+        200.769,
+        186.771,
+        191.409,
+        190.074,
+        185.096,
+        192.989,
+        213.979,
+        204.095,
+        210.775,
+        210.71,
+        215.182,
+        233.009,
+        226.869,
+        228.019,
+        223.759,
+        213.108,
+        225.276,
+        237.404,
+        229.084,
+        238.378,
+        244.292,
+        246.671
+      ]
+    }
+  ],
+  "finished_at": "2026-11-19T09:12:07.593745+00:00"
+}
