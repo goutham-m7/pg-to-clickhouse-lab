@@ -31,6 +31,26 @@ services:
       interval: 2s
       timeout: 2s
       retries: 60
+  console:
+    profiles: ['console']
+    build: .
+    image: pg-to-clickhouse-lab:local
+    ports: ['127.0.0.1:58238:58238']
+    healthcheck:
+      test: ['CMD', 'python', '-c', "from urllib.request import urlopen; urlopen('http://127.0.0.1:58238/api/report', timeout=2).read()"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    depends_on:
+      postgres: {condition: service_healthy}
+      clickhouse: {condition: service_healthy}
+  worker:
+    profiles: ['console']
+    image: pg-to-clickhouse-lab:local
+    pull_policy: never
+    command: ['python', '-m', 'ledger.replicate', '--watch']
+    depends_on:
+      console: {condition: service_healthy}
 volumes:
   pg:
   ch:

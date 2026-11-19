@@ -1,0 +1,14 @@
+**
+!Dockerfile
+!pyproject.toml
+!uv.lock
+!ledger/
+!ledger/*.py
+!evidence/
+!evidence/run.json
+!console/
+!console/package*.json
+!console/index.html
+!console/tsconfig.json
+!console/src/
+!console/src/**
