@@ -1,0 +1,12 @@
+[project]
+name = "ledger-parallax"
+version = "0.1.0"
+description = "A PostgreSQL logical-decoding to ClickHouse comparison lab"
+requires-python = ">=3.11"
+dependencies = ["psycopg[binary]>=3.2,<4"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
