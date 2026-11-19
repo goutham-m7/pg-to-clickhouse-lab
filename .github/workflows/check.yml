@@ -1,0 +1,23 @@
+name: Verify the lab
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: uv sync --locked
+      - run: uv run --locked --offline pytest -q
+      - run: docker compose up -d --wait postgres clickhouse
+      - run: uv run --locked --offline python -m ledger.bench --sizes 10000 --runs 3
+      - run: LAB_INTEGRATION=1 uv run --locked --offline pytest -q
+      - run: npm ci && npm run build && npx playwright install --with-deps chromium && npm test
+        working-directory: console
+      - if: always()
+        run: docker compose down -v
